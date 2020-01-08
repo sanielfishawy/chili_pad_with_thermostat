@@ -27,6 +27,9 @@ class TemperatureSense:
     def to_farheheit(self, deg_c):
         return 32 + 9 * deg_c/5
 
+    def get_temp_fahrenheit(self):
+        return self.to_farheheit(self.get_temp_data().temperature)
+
 
 if __name__ == '__main__':
     ts = TemperatureSense()
