@@ -1,0 +1,2 @@
+ - test how quickly we can read temp and how accurate the times are.
+ -
