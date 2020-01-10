@@ -32,6 +32,8 @@ class PID(object):
                  setpoint=0,
                  sample_time=0.01,
                  output_limits=(None, None),
+                 integral_start_threshold=2,
+                 integral_stop_threshold=.1,
                  auto_mode=True,
                  proportional_on_measurement=False):
         """
@@ -58,6 +60,8 @@ class PID(object):
         self.sample_time = sample_time
 
         self._min_output, self._max_output = output_limits
+        self.integral_start_threshold = integral_start_threshold
+        self.integral_stop_threshold = integral_stop_threshold
         self._auto_mode = auto_mode
         self.proportional_on_measurement = proportional_on_measurement
 
@@ -99,7 +103,7 @@ class PID(object):
         # compute integral and derivative terms
         if error * self._last_error < 0: # Zero on zero crossings and if err not close.
             self._integral = 0
-        elif abs(error) > 2:
+        elif abs(error) > self.integral_start_threshold or abs(error) < self.integral_stop_threshold:
             self._integral = 0
         else:
             self._integral += self.Ki * error * dt

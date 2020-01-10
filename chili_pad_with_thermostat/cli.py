@@ -25,6 +25,8 @@ class Cli:
 
         if command == 'start':
             self.handle_start()
+        elif command == 'debug':
+            pass
 
     def handle_start(self):
         self.thermostat.start_program()

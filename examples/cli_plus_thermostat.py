@@ -9,14 +9,14 @@ from chili_pad_with_thermostat.cli import Cli
 async def main():
     temp_program = TempProgram(
         start_temp=90,
-        # start_temp_hold_time=5,
-        # temp_drop_rate=.1,
+        start_temp_hold_time=5,
+        temp_drop_rate=.001,
     )
 
     # temp_program.start()
 
     thermo = Thermostat(
-        temp_program=temp_program,
+        # temp_program=temp_program,
     )
     cli = Cli(
         thermostat=thermo,

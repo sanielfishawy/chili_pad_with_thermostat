@@ -29,8 +29,3 @@ class TemperatureSense:
 
     def get_temp_fahrenheit(self):
         return self.to_farheheit(self.get_temp_data().temperature)
-
-
-if __name__ == '__main__':
-    ts = TemperatureSense()
-    pass
