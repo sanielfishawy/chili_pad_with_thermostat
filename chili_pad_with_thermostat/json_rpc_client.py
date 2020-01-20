@@ -2,19 +2,13 @@
 import requests
 
 class JsonRpcClient:
-    SERVER_URL = 'http://localhost:5000'
+    SERVER_URL = 'http://sanichili.local:5000'
 
     BASE_JSON_REQUEST = {
         'method': 'handle_request',
         'jsonrpc': '2.0',
         'id': 0,
     }
-
-    SAMPLE_COMMAND = [
-        'temp_program',
-        'set_start_temp',
-        95,
-    ]
 
     def __init__(
             self,
@@ -38,8 +32,4 @@ class JsonRpcClient:
             return response['result']
         else:
             return response
-
-
-if __name__ == "__main__":
-    print(JsonRpcClient.send_request(JsonRpcClient.SAMPLE_COMMAND))
 
