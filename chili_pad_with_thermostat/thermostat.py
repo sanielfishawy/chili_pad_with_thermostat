@@ -14,16 +14,17 @@ class Thermostat:
     ):
         self.cp = CP()
         self.cp.pump_on()
+        # self.cp.off()
         self.temp_sense = TemperatureSense()
         self.temp_program = temp_program
         self.pid = PID(
             Kp=5,
-            Ki=0.001,
-            Kd=10,
+            Ki=0.005,
+            Kd=200,
             setpoint=(self.temp_program and self.temp_program.start_temp) or Thermostat.DEFAULT_SET_POINT,
             sample_time=0.5,
             output_limits=(-100,100),
-            integral_start_threshold=4,
+            integral_start_threshold=1,
             integral_stop_threshold=.1,
         )
         self.logger = cl.ChiliLogger().get_logger()
@@ -46,7 +47,7 @@ class Thermostat:
         txt = f'Set: {self.pid.setpoint} '
         txt += f'Temp: {temp:0.2f} {self.cp.get_heat_cool()} Power:{self.cp.get_power()} '
         txt += f'Components: {self.pid.components}'
-        return txt
+        return str(txt)
 
     def set_temp(self, temp):
         self.pid.setpoint = temp

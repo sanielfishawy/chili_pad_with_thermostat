@@ -111,6 +111,9 @@ class PID(object):
         self._integral = _clamp(self._integral, self.output_limits)  # avoid integral windup
 
         self._derivative = -self.Kd * d_input / dt
+        # Dont have the derivative bounce the heater on and off for minor changes.
+        if abs(self._derivative) < 2:
+            self._derivative = 0
 
         # compute final output
         output = self._proportional + self._integral + self._derivative

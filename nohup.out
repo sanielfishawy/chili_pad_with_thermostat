@@ -1,0 +1,8 @@
+/home/pi/chili_pad_with_thermostat/venv/lib/python3.7/site-packages/chili_pad/driver.py:28: RuntimeWarning: This channel is already in use, continuing anyway.  Use GPIO.setwarnings(False) to disable warnings.
+  GPIO.setup(pin, GPIO.OUT, initial=GPIO.LOW)
+/home/pi/chili_pad_with_thermostat/venv/lib/python3.7/site-packages/chili_pad/pwm_power.py:19: RuntimeWarning: This channel is already in use, continuing anyway.  Use GPIO.setwarnings(False) to disable warnings.
+  GPIO.setup(self.pwm_pin, GPIO.OUT, initial=GPIO.HIGH)
+ * Running on http://localhost:5000/ (Press CTRL+C to quit)
+127.0.0.1 - - [19/Jan/2020 21:46:43] "POST / HTTP/1.1" 200 -
+127.0.0.1 - - [19/Jan/2020 21:46:58] "POST / HTTP/1.1" 200 -
+127.0.0.1 - - [19/Jan/2020 21:47:05] "POST / HTTP/1.1" 200 -
