@@ -1,0 +1,10 @@
+-
+    start_temp: 75
+    end_temp: 95
+    duration: 1
+    time_unit: hour
+-
+    start_temp: 95
+    end_temp: 75
+    duration: 6
+    time_unit: hour
