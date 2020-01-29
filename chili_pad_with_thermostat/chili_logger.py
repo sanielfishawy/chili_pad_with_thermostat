@@ -16,7 +16,7 @@ class _ChiliLogger:
         ch.setLevel(logging.ERROR)
 
         # create formatter and add it to the handlers
-        formatter = logging.Formatter('%(message)s')
+        formatter = logging.Formatter('%(asctime)-15s %(message)s')
         ch.setFormatter(formatter)
         fh.setFormatter(formatter)
 

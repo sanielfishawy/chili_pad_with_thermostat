@@ -1,0 +1,23 @@
+-
+    start_temp: 70
+    end_temp: 75
+    duration: 5
+    time_unit: second
+    mode: 'heat_only'
+-
+    start_temp: 75
+    end_temp: 70
+    duration: 5
+    time_unit: second
+    mode: 'cool_only'
+-
+    start_temp: 70
+    end_temp: 75
+    duration: 5
+    time_unit: second
+    mode: 'heat_and_cool'
+-
+    start_temp: 75
+    end_temp: 70
+    duration: 5
+    time_unit: second

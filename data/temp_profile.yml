@@ -1,0 +1,24 @@
+-
+    start_temp: 100
+    end_temp: 110
+    duration: 10
+    time_unit: second
+    mode: heat_and_cool
+-
+    start_temp: 100
+    end_temp: 110
+    duration: 10
+    time_unit: second
+    mode: cool_only
+-
+    start_temp: 60
+    end_temp: 60
+    duration: 10
+    time_unit: second
+    mode: heat_only
+-
+    start_temp: 60
+    end_temp: 60
+    duration: 10
+    time_unit: second
+    mode: cool_only

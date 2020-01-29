@@ -9,7 +9,7 @@ from chili_pad_with_thermostat.cli import Cli
 from chili_pad_with_thermostat.thermostat_rpc_handler import ThermostatRpcHandler
 
 async def main():
-    temp_program = TempProgram()
+    temp_program = TempProgram('/home/pi/chili_pad_with_thermostat/data/temp_profile.yml')
     thermo = Thermostat(temp_program=temp_program)
     command_handler = ThermostatRpcHandler(thermo)
     cli = Cli(command_handler.handle_command)
