@@ -4,11 +4,14 @@ import time
 import datetime
 import yaml
 
+from chili_pad_with_thermostat.temperature_sense import TemperatureSense
+
 class TempProgram:
     '''
     Set up a versitile profile from data in a yml file describing the profile.
     '''
     START_TEMP = 'start_temp'
+    CURRENT_TEMP = 'current_temp'
     END_TEMP = 'end_temp'
     DURATION = 'duration'
     DURATION_SECONDS = 'duration_seconds'
@@ -32,6 +35,7 @@ class TempProgram:
         self.profile_yml = profile_yml
         self.profile = None
         self.load_profile(self.profile_yml)
+        self.temp_sense = TemperatureSense()
 
         self.start_time = None
         self.start_date = None
@@ -61,22 +65,31 @@ class TempProgram:
         self.profile = self.normalize_profile(obj)
         return obj
 
-    def get_current_segment(self):
+    def get_current_segment_number(self):
         i = 0
         for segment in self.profile:
             if self.time_since_start() <= segment[self.__class__.SEGMENT_END]:
                 break
             i += 1
-        return self.profile[min(i, len(self.profile) - 1)]
+        return min(i, len(self.profile) - 1)
+
+    def get_current_segment(self):
+        return self.profile[self.get_current_segment_number()]
 
     def get_current_segment_start_temp(self):
-        return self.get_current_segment()[self.__class__.START_TEMP]
+        start_temp = self.get_current_segment()[self.__class__.START_TEMP]
+
+        if start_temp == self.__class__.CURRENT_TEMP:
+            start_temp = self.temp_sense.get_temp_fahrenheit()
+            self.set_start_temp_for_current_segment(start_temp)
+
+        return start_temp
+
+    def set_start_temp_for_current_segment(self, start_temp):
+        self.profile[self.get_current_segment_number()][self.__class__.START_TEMP] = start_temp
 
     def get_current_segment_end_temp(self):
         return self.get_current_segment()[self.__class__.END_TEMP]
-
-    def get_initial_temp(self):
-        return self.profile[0][self.__class__.START_TEMP]
 
     def get_time_in_segment(self):
         return self.time_since_start() - self.get_current_segment()[self.__class__.SEGMENT_START]
@@ -123,7 +136,9 @@ class TempProgram:
 
     def get_mode(self):
         seg = self.get_current_segment()
-        if self.__class__.MODE in seg:
+        if not self.is_running:
+            mode = self.__class__.MODE_HEAT_AND_COOL
+        elif self.__class__.MODE in seg:
             mode = seg[self.__class__.MODE]
             self.raise_if_bad_mode(mode)
         else:
@@ -133,7 +148,4 @@ class TempProgram:
     def raise_if_bad_mode(self, mode):
         if mode not in self.__class__.MODES:
             raise KeyError(f'Unknown mode. Should be: {self.__class__.MODES}')
-
-
-
 

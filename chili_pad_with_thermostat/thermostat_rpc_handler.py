@@ -2,6 +2,20 @@
 from chili_pad_with_thermostat.thermostat import Thermostat
 
 class ThermostatRpcHandler:
+    PROG = 'prog'
+    THERMO = 'thermo'
+    CP = 'cp'
+    PID = 'pid'
+    SENSE = 'sense'
+    PWM = 'pwm'
+    OBJECTS = [
+        PROG,
+        THERMO,
+        CP,
+        PID,
+        SENSE,
+        PWM,
+    ]
 
     def __init__(
             self,
@@ -21,23 +35,28 @@ class ThermostatRpcHandler:
         meth = args[1]
         params = args[2:]
 
-        if obj == 'prog':
+        if obj == self.__class__.PROG:
             obj = self.thermostat.temp_program
-        elif obj == 'thermo':
+        elif obj == self.__class__.THERMO:
             obj = self.thermostat
-        elif obj == 'cp':
+        elif obj == self.__class__.CP:
             obj = self.thermostat.cp
-        elif obj == 'pid':
+        elif obj == self.__class__.PID:
             obj = self.thermostat.pid
-        elif obj == 'sense':
+        elif obj == self.__class__.SENSE:
             obj = self.thermostat.temp_sense
+        elif obj == self.__class__.PWM:
+            obj = self.thermostat.cp.pwm_power
         else:
-            return f'Unknown object: {obj}'
+            nl = '\n'
+            msg = f'Unknown object: {obj}.  Try one of these:{nl}{nl.join(self.__class__.OBJECTS)}'
+            return msg
+
 
         if not hasattr(obj, meth):
             good_methods = [func for func in dir(obj) if callable(getattr(obj, func)) and not func.startswith('_')]
             nl = '\n'
-            return f"Unknown method: {meth} try one of these:{nl}{nl.join(good_methods)}"
+            return f"Unknown method: {meth}. Try one of these:{nl}{nl.join(good_methods)}"
 
         result = getattr(obj, meth)(*params)
         return result

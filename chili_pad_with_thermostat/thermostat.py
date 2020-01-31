@@ -1,5 +1,4 @@
 #pylint: disable=invalid-name
-import datetime
 import asyncio
 from chili_pad.driver import Driver as CP
 from chili_pad_with_thermostat.pid import PID
@@ -23,14 +22,14 @@ class Thermostat:
         self.temp_sense = TemperatureSense()
         self.temp_program = temp_program
         self.pid = PID(
-            Kp=5,
+            Kp=50,
             Ki=0.005,
-            Kd=200,
-            setpoint=(self.temp_program and self.temp_program.get_initial_temp()) or Thermostat.DEFAULT_SET_POINT,
+            Kd=100,
+            setpoint=(self.temp_program and self.temp_program.get_temp()) or Thermostat.DEFAULT_SET_POINT,
             sample_time=0.5,
             output_limits=(-100, 100),
             integral_start_threshold=1,
-            integral_stop_threshold=.1,
+            integral_stop_threshold=.05,
         )
         self.is_on = False
 
@@ -55,9 +54,9 @@ class Thermostat:
 
     def get_status_string(self, temp=None):
         temp = temp or self.temp_sense.get_temp_fahrenheit()
-        txt = f'Set: {self.pid.setpoint} '
+        txt = f'Set: {self.pid.setpoint:0.2f} '
         txt += f'Temp: {temp:0.2f} {self.cp.get_heat_cool()} Power:{self.cp.get_power()} '
-        txt += f'Components: {self.pid.components} '
+        txt += f'Components: {[round(component, 2) for component in self.pid.components]} '
         txt += f'Limits: {self.pid.output_limits}'
         return str(txt)
 

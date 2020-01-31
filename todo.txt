@@ -1,2 +1,5 @@
- - test how quickly we can read temp and how accurate the times are.
- -
+ x set mode to heat_and_cool before start
+ - Add a current_temp for start
+ - Get rid of return value for heat in driver
+ - int power for pwm normalize power
+
