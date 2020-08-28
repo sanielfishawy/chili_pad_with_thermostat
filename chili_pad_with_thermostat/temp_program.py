@@ -61,7 +61,7 @@ class TempProgram:
 
     def load_profile(self, profile_yml):
         with open(profile_yml, 'r') as yml:
-            obj = yaml.load(yml)
+            obj = yaml.safe_load(yml)
         self.profile = self.normalize_profile(obj)
         return obj
 

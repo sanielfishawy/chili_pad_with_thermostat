@@ -1,8 +1,10 @@
 import os
+import sys
 from werkzeug.wrappers import Request, Response
 from werkzeug.serving import run_simple
 from jsonrpcserver import method, dispatch
 
+sys.path.append(os.getcwd())
 from chili_pad_with_thermostat.thermostat_rpc_handler import ThermostatRpcHandler
 
 class JsonRpcServer:
@@ -32,7 +34,7 @@ class JsonRpcServer:
     @staticmethod
     def get_ip():
         f = os.popen('hostname -I')
-        return f.read().strip()
+        return f.read().split()[0].strip()
 
     @staticmethod
     def run_server():

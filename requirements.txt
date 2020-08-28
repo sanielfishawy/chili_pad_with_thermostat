@@ -11,7 +11,7 @@ cchardet==2.1.5
 certifi==2019.11.28
 cffi==1.13.2
 chardet==3.0.4
-chili-pad==0.0.1
+chili-pad @ git+https://github.com/sanielfishawy/chili_pad@cce5cd52c544c09d29653a9bc72523dfdf20c638
 cycler==0.10.0
 idna==2.8
 importlib-metadata==1.4.0
@@ -32,6 +32,7 @@ pylint==2.4.4
 pyparsing==2.4.6
 pyrsistent==0.15.7
 python-dateutil==2.8.1
+PyYAML==5.3.1
 pyzmq==18.1.1
 requests==2.22.0
 rope==0.16.0
