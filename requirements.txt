@@ -26,7 +26,7 @@ mccabe==0.6.1
 more-itertools==8.1.0
 multidict==4.7.4
 numpy==1.18.1
-pycares==3.1.1
+pycares==4.2.0
 pycparser==2.19
 pylint==2.4.4
 pyparsing==2.4.6
