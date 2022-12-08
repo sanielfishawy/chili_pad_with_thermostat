@@ -8,7 +8,7 @@ async-timeout==3.0.1
 attrs==19.3.0
 brotlipy==0.7.0
 cchardet==2.1.5
-certifi==2019.11.28
+certifi==2022.12.7
 cffi==1.13.2
 chardet==3.0.4
 chili-pad @ git+https://github.com/sanielfishawy/chili_pad@cce5cd52c544c09d29653a9bc72523dfdf20c638
